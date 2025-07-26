@@ -1,0 +1,19 @@
+# CANVAS_WIDTH = 800
+# CANVAS_HEIGHT = 800
+#
+# GOTCHI_BOX_X0 = CANVAS_WIDTH / 8 # start at first 8th
+# GOTCHI_BOX_Y0 = 300
+# GOTCHI_BOX_X1 =  (CANVAS_WIDTH * 7) / 8  # end at last 8th
+# GOTCHI_BOX_Y1 = CANVAS_HEIGHT - 100
+
+
+# Constants
+CANVAS_WIDTH = 800
+CANVAS_HEIGHT = 800
+
+# Bounding box for the nested canvas (the gotchi's play area)
+GOTCHI_BOX_X = CANVAS_WIDTH / 2
+GOTCHI_BOX_Y = 550
+GOTCHI_BOX_WIDTH = CANVAS_WIDTH * 0.75
+GOTCHI_BOX_HEIGHT = 500
+
