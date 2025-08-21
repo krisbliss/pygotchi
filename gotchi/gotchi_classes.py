@@ -68,9 +68,6 @@ class Baby(Gotchi):
         self.body_size = 100
         self.center_x = self.canvas_width / 2
         self.center_y = self.canvas_height / 2
-        
-        # creates body and immediately adds it as first element of parts[] list
-        # self._create_body()
 
         # static features class for now, will update this in future to be modular in accepting another type of class file to represent different variants of baby gotchi
         features = TestBabyFeatures(self.canvas, self.center_x, self.center_y, self.body_size)

@@ -3,6 +3,7 @@ import tkinter as tk
 from canvas_values import *
 # from gotchi.gotchi_class import Gotchi
 from gotchi.gotchi_classes import Baby, Teen, Adult
+from food.food_classes import Cookie
 from time import *
 
 def main():
@@ -23,7 +24,12 @@ def main():
 
     status_text = main_canvas.create_text(20,20, anchor="nw", font=("Arial", 30), fill='black',text=f"{pygotchiname} is a baby!")
 
-   
+    # create food object
+    cookie = Cookie(main_canvas)
+
+    # make cookie clickable 
+    main_canvas.tag_bind(cookie.cookie_base,"<Button-1>", print("clicked")) # <Button-1> == left mouse click
+  
     # preload all the pigotchi life stages
     baby = Baby(gotchi_canvas)
     teen = Teen(gotchi_canvas)
@@ -62,56 +68,12 @@ def main():
             main_canvas.itemconfig(status_text, text=f"Great job raising {pygotchiname}!")
             return
         
-
+        # run animcaiton function for currently active_gotchi
         active_gotchi.animate()
 
         # update screen to reflect gotchi movment every 300 millieseconds
         root.after(300,game_loop)
             
-    # # init current_time to start processing pygotchi life stages loop
-    # current_time = time()
-    # while (current_time - START_TIME) < 300:
-    #     current_time = time() # recalculate current time each time the program loops
-    #     sleep(1) # puts a pause so there is a brief break before the next animate loop
-    #
-    #     if (current_time - START_TIME) < 30: # sets 30 seconds for this animation loop
-    #
-    #         #hide irrelevant evolutions
-    #         teengotchi.hidegotchi()
-    #         adultgotchi.hidegotchi()
-    #
-    #         # animate current evolution
-    #         babygotchi.animate(gotchibox)
-    #
-    #     elif (current_time - START_TIME) <= 120:
-    #         canvas.delete(gotchistate) 
-    #         gotchistate = canvas.create_text(20, 20, anchor = "w", font = "Arial 30", text = f"{pygotchiname} is now a teenager!")
-    #         # hide irrelevant evolutions
-    #         babygotchi.hidegotchi()
-    #         adultgotchi.hidegotchi()
-    #
-    #         # show and animate current evolution
-    #         teengotchi.showgotchi()
-    #         teengotchi.animate(gotchibox)
-    #
-    #     else:
-    #         # hide irrelevant evolutions
-    #         babygotchi.hidegotchi()
-    #         teengotchi.hidegotchi()
-    #
-    #         # show and animate current evolution
-    #         adultgotchi.showgotchi()
-    #         adultgotchi.animate(gotchibox)
-    #
-    #         canvas.delete(gotchistate)
-    #         gotchistate = canvas.create_text(20, 20, anchor = "w", font = "Arial 30", text = f"{pygotchiname} has grown into an adult!")
-    #
-    #     canvas.update() # runs every time it loops, updates the canvas every time it changes
-    #
-    # canvas.delete(gotchistate)
-    # gotchistate = canvas.create_text(20, 20, anchor = "w", font = "Arial 30", text = f"Great job taking such good care of {pygotchiname}!")
-    
-    # root.update()
     game_loop()
     root.mainloop()
 
