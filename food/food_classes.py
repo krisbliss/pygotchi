@@ -10,21 +10,19 @@ class Food:
 
     def __init__(self,canvas):
         self.canvas = canvas
+        self.parts = []
+        self.tag = ""
         
         # get canvas dimensions
         self.canvas_width = int(self.canvas.cget("width"))
         self.canvas_height = int(self.canvas.cget("height"))
-        
-        # store list of objects to be displayed
-        self.parts = []
 
     def _onClick(self):
         pass
 
     def _BiteAnimiation(self):
         pass
-
-
+  
 class Cookie(Food):
     
     def __init__(self,canvas,onClick=None):

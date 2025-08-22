@@ -44,20 +44,20 @@ def main():
         # single var to denote which active gotchi to animate
         active_gotchi = None
 
-        if elapsed_time < 10:
+        if elapsed_time < 20:
             active_gotchi = baby
             baby.show()
             teen.hide()
             adult.hide()
 
-        elif elapsed_time < 20:
+        elif elapsed_time < 50:
             main_canvas.itemconfig(status_text, text=f"{pygotchiname} is now a teenager!")
             active_gotchi = teen
             baby.hide()
             teen.show()
             adult.hide()
 
-        elif elapsed_time < 30:
+        elif elapsed_time < 120:
             main_canvas.itemconfig(status_text, text=f"{pygotchiname} is an adult!")
             active_gotchi = adult
             baby.hide()

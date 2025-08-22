@@ -14,6 +14,7 @@ class Gotchi:
     def __init__(self,canvas):
         self.canvas = canvas
         self.parts = [] #init empty list
+        self.tag = ""
 
         # get canvas dimensions
         self.canvas_width = int(self.canvas.cget("width"))
@@ -22,6 +23,11 @@ class Gotchi:
         # Velocity & direciton for movement animation
         self.dx = random.choice([-2,2])
         self.dy = random.choice([-2,2])
+
+        # Universal center for gotchi body spawn
+        self.center_x = self.canvas_width /2
+        self.center_y = self.canvas_height /2
+
 
     # used by child classes to append 
     def add_part(self,part_id):
@@ -47,17 +53,21 @@ class Gotchi:
             self.dy *= -1 # invert the direciton of dy upon collision  
 
         # move ALL parts of gotchi as single unit
-        for part in self.parts:
-            self.canvas.move(part, self.dx, self. dy)
+        #for part in self.parts:
+        #    self.canvas.move(part, self.dx, self. dy)
+        
+        self.canvas.move(self.tag, self.dx, self. dy)
 
     
     def hide(self):
-        for part in self.parts:
-            self.canvas.itemconfig(part,state='hidden')
+        #for part in self.parts:
+        #   self.canvas.itemconfig(part,state='hidden')
+        self.canvas.itemconfig(self.tag,state='hidden')
 
     def show(self):
-        for part in self.parts:
-            self.canvas.itemconfig(part,state='normal')
+        #for part in self.parts:
+        #    self.canvas.itemconfig(part,state='normal')
+        self.canvas.itemconfig(self.tag,state='normal')
 
 
 # --- Baby --- #
@@ -66,11 +76,10 @@ class Baby(Gotchi):
     def __init__(self,canvas):
         super().__init__(canvas) # create instance of Gotchi (aka parent class) as part of current class
         self.body_size = 100
-        self.center_x = self.canvas_width / 2
-        self.center_y = self.canvas_height / 2
+        self.tag = "baby"
 
         # static features class for now, will update this in future to be modular in accepting another type of class file to represent different variants of baby gotchi
-        features = TestBabyFeatures(self.canvas, self.center_x, self.center_y, self.body_size)
+        features = TestBabyFeatures(self.canvas, self.center_x, self.center_y, self.body_size, self.tag)
         for part in features.get_all_feature_ids():
             self.add_part(part)
 
@@ -82,32 +91,27 @@ class Teen(Gotchi):
     def __init__(self,canvas):
         super().__init__(canvas)
         self.body_size = 150
-        self.center_x = self.canvas_width /2
-        self.center_y = self.canvas_height /2
+        self.tag = "teen"
 
-        features = TestTeenFeatures(self.canvas, self.center_x, self.center_y, self.body_size)
+        # function to store array of objects that make up gotchi's features
+        features = TestTeenFeatures(self.canvas, self.center_x, self.center_y, self.body_size, self.tag)
         for part in features.get_all_feature_ids():
             self.add_part(part)
 
         # start in hidden state
         self.hide()
-
 
 # --- Adult --- #
 class Adult(Gotchi):
     def __init__(self,canvas):
         super().__init__(canvas)
         self.body_size = 300
-        self.center_x = self.canvas_width /2
-        self.center_y = self.canvas_height/2
-
-        features = TestAdultFeatures(self.canvas, self.center_x, self.center_y, self.body_size)
+        self.tag = "adult"
+        
+        # function to store array of objects that make up gotchi's features
+        features = TestAdultFeatures(self.canvas, self.center_x, self.center_y, self.body_size, self.tag)
         for part in features.get_all_feature_ids():
             self.add_part(part)
 
         # start in hidden state
         self.hide()
-
-    def _create_body(self):
-       self.add_part(body_id)
- 

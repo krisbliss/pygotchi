@@ -4,7 +4,7 @@ import random
 
 class TestBabyFeatures:
     # Defines the specific features for a baby.
-    def __init__(self, canvas, center_x, center_y, body_size):
+    def __init__(self, canvas, center_x, center_y, body_size, tag):
 
         #define specific body style features unique to this gotchi
         # make generic baby body as this stage will be static shape
@@ -15,12 +15,23 @@ class TestBabyFeatures:
         y1 = center_y + body_size /2
        
         # creates single list item to ALLWAYS be appened first
-        self.body_id = [canvas.create_oval(x0,y0,x1,y1, fill=color, outline='black',width=2)]
+        self.body_id = [canvas.create_oval(
+                            x0,y0,x1,y1, fill=color, 
+                            outline='black',width=2,
+                            tags=tag
+                        )]
 
         # use universal or modular eyes / mouth 
         # each item is list item         
-        self.eyes = Eyes(canvas, center_x, center_y, x_offset=body_size/4, y_offset=body_size/5)
-        self.mouth = Mouth(canvas, center_x, center_y, width=body_size/3, height_offset=body_size/8)
+        self.eyes = Eyes(
+                        canvas, tag, center_x, center_y, 
+                        x_offset=body_size/4, y_offset=body_size/5
+                    )
+
+        self.mouth = Mouth(
+                        canvas, tag, center_x, center_y, 
+                        width=body_size/3, height_offset=body_size/8
+                    )
 
     # returns list of concatinated lists
     def get_all_feature_ids(self):
