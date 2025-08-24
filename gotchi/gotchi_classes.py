@@ -11,10 +11,13 @@ class Gotchi:
         2) obtaining the root.canvas and dimensions
         3) holding parts[] list
     """
-    def __init__(self,canvas):
+    def __init__(self,canvas,food=None):
         self.canvas = canvas
         self.parts = [] #init empty list
         self.tag = ""
+
+        # will store bite_animation from cookie
+        # self.food_function = None
 
         # get canvas dimensions
         self.canvas_width = int(self.canvas.cget("width"))
@@ -33,16 +36,27 @@ class Gotchi:
     def add_part(self,part_id):
         self.parts.append(part_id)
     
+    # pass in the Cookie.draw & Cookie.bite_animation functions to add it to the gotchi canvas 
+    def eat_animation(self):
+        # if self.food_function:
+            # self.food_function()
+        print("clicked")
+
+    def open_mouth_animation(self):
+        self.mouth
+
+    def open_mouth_animation(self):
+
     
     # used in main() function's game_loop() to disaplay gotchi movement 
-    def animate(self):
+    def move_animate(self):
         
         # guard clause to stop program if parts[] list is empty
         if not self.parts:
             return
         
-        # canvas.bbox will collect coordinate info for main body 
-        # Note: assuming main body is first element added to list
+        # calnvas.bbox will collect coordinate info for main body 
+        # Notfe: assuming main body is first element added to list
         x0,y0,x1,y1 = self.canvas.bbox(self.parts[0])
         
         # check if any of main body's coordinates collide with edges of canvas
@@ -52,10 +66,7 @@ class Gotchi:
         if y0 <= 0 or y1 >= self.canvas_height:
             self.dy *= -1 # invert the direciton of dy upon collision  
 
-        # move ALL parts of gotchi as single unit
-        #for part in self.parts:
-        #    self.canvas.move(part, self.dx, self. dy)
-        
+        # move ALL parts of gotchi as single unit (using tags)
         self.canvas.move(self.tag, self.dx, self. dy)
 
     
@@ -69,12 +80,17 @@ class Gotchi:
         #    self.canvas.itemconfig(part,state='normal')
         self.canvas.itemconfig(self.tag,state='normal')
 
+    def add_happiness(self):
+        print("clicked food, happiness increased")
+
+    def set_food_callback(self,callback):
+        self.food = callback
 
 # --- Baby --- #
 class Baby(Gotchi):
 
-    def __init__(self,canvas):
-        super().__init__(canvas) # create instance of Gotchi (aka parent class) as part of current class
+    def __init__(self,canvas,food=None):
+        super().__init__(canvas,food) # create instance of Gotchi (aka parent class) as part of current class
         self.body_size = 100
         self.tag = "baby"
 
@@ -88,8 +104,8 @@ class Baby(Gotchi):
 
 # --- Teen --- #
 class Teen(Gotchi):
-    def __init__(self,canvas):
-        super().__init__(canvas)
+    def __init__(self,canvas,food=None):
+        super().__init__(canvas,food)
         self.body_size = 150
         self.tag = "teen"
 
@@ -103,8 +119,8 @@ class Teen(Gotchi):
 
 # --- Adult --- #
 class Adult(Gotchi):
-    def __init__(self,canvas):
-        super().__init__(canvas)
+    def __init__(self,canvas,food=None):
+        super().__init__(canvas,food)
         self.body_size = 300
         self.tag = "adult"
         
